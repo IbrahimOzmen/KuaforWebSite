@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuaforRandevuSistemi.Web", "KuaforRandevuSistemi.Web\KuaforRandevuSistemi.Web.csproj", "{02940523-943D-4629-9067-B9824528C861}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuaforRandevuSistemi.Core", "KuaforRandevuSistemi.Core\KuaforRandevuSistemi.Core.csproj", "{1E8C43A4-864C-46EC-8DED-E24DE1911178}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuaforRandevuSistemi.Infrastructure", "KuaforRandevuSistemi.Infrastructure\KuaforRandevuSistemi.Infrastructure.csproj", "{FA984ABF-425A-4F5E-B7EA-20572EF9383C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuaforRandevuSistemi.Application", "KuaforRandevuSistemi.Application\KuaforRandevuSistemi.Application.csproj", "{6BDA5021-DCEE-4252-B0F1-71842933462B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Çözüm Öğeleri", "Çözüm Öğeleri", "{1E173EF1-FAB4-469F-8088-E8C494E2205E}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02940523-943D-4629-9067-B9824528C861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02940523-943D-4629-9067-B9824528C861}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02940523-943D-4629-9067-B9824528C861}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02940523-943D-4629-9067-B9824528C861}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E8C43A4-864C-46EC-8DED-E24DE1911178}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E8C43A4-864C-46EC-8DED-E24DE1911178}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E8C43A4-864C-46EC-8DED-E24DE1911178}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E8C43A4-864C-46EC-8DED-E24DE1911178}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA984ABF-425A-4F5E-B7EA-20572EF9383C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA984ABF-425A-4F5E-B7EA-20572EF9383C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA984ABF-425A-4F5E-B7EA-20572EF9383C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA984ABF-425A-4F5E-B7EA-20572EF9383C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BDA5021-DCEE-4252-B0F1-71842933462B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BDA5021-DCEE-4252-B0F1-71842933462B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BDA5021-DCEE-4252-B0F1-71842933462B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BDA5021-DCEE-4252-B0F1-71842933462B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
