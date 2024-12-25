@@ -1,0 +1,25 @@
+﻿<!-- KuaforRandevuSistemi.Web/Views/AIStyle/History.cshtml -->
+@model IEnumerable<KuaforRandevuSistemi.Core.Entities.AIStyleSuggestion>
+
+@{
+    ViewData["Title"] = "Öneri Geçmişi";
+}
+
+<div class="container">
+    <h2>Saç Modeli Öneri Geçmişi</h2>
+
+    <div class="row">
+        @foreach (var suggestion in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <img src="/@suggestion.ImagePath" class="card-img-top" alt="Hair style">
+                    <div class="card-body">
+                        <h5 class="card-title">@suggestion.CreatedAt.ToString("dd MMMM yyyy")</h5>
+                        <p class="card-text">@suggestion.Suggestions</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

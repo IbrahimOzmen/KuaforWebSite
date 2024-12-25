@@ -1,0 +1,89 @@
+﻿<!-- KuaforRandevuSistemi.Web/Views/AIStyle/Index.cshtml -->
+@{
+    ViewData["Title"] = "AI Saç Modeli Önerisi";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>AI Saç Modeli Önerisi</h3>
+                </div>
+                <div class="card-body">
+                    <form id="styleForm" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Fotoğrafınızı Yükleyin</label>
+                            <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                            <div id="imagePreview" class="mt-2"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="currentHairDescription" class="form-label">Mevcut Saç Stilinizi Tanımlayın</label>
+                            <textarea class="form-control" id="currentHairDescription" name="currentHairDescription" rows="3"
+                                      placeholder="Örnek: Omuz hizasında, düz, kahverengi saçlar" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Öneri Al</button>
+                    </form>
+
+                    <div id="suggestionResult" class="mt-4" style="display: none;">
+                        <h4>AI Önerileri:</h4>
+                        <div id="suggestionText" class="p-3 bg-light"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Image preview
+            $('#image').change(function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#imagePreview').html(`<img src="${e.target.result}" class="img-fluid" style="max-height: 300px;">`);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Form submission
+            $('#styleForm').submit(function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(this);
+
+                $.ajax({
+                    url: '/AIStyle/GetSuggestion',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function() {
+                        $('#suggestionResult').hide();
+                        $('button[type="submit"]').prop('disabled', true).html(
+                            '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> İşleniyor...'
+                        );
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $('#suggestionText').html(response.suggestion.replace(/\n/g, '<br>'));
+                            $('#suggestionResult').show();
+                        } else {
+                            alert('Bir hata oluştu: ' + response.error);
+                        }
+                    },
+                    error: function() {
+                        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+                    },
+                    complete: function() {
+                        $('button[type="submit"]').prop('disabled', false).html('Öneri Al');
+                    }
+                });
+            });
+        });
+    </script>
+}
