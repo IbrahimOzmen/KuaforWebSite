@@ -1,0 +1,39 @@
+﻿@* Views/Admin/Appointments.cshtml *@
+@model IEnumerable<KuaforRandevuSistemi.Core.Entities.Appointment>
+
+@{
+    ViewData["Title"] = "Randevular";
+}
+
+
+<div class="container mt-4">
+    <h2>Randevular</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tarih</th>
+                <th>Müşteri Email</th>
+                <th>Çalışan</th>
+                <th>Hizmet</th>
+                <th>Durum</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AppointmentStartTime.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@item.Customer?.Email</td>
+                    <td>@item.Employee?.Name</td>
+                    <td>@item.Service?.Name</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <a asp-action="EditAppointment" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Düzenle</a>
+                        <a asp-action="DeleteAppointment" asp-route-id="@item.Id" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinize emin misiniz?')">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,39 @@
+﻿@model KuaforRandevuSistemi.Core.Entities.Employee
+
+<h2>Yeni Çalışan Ekle</h2>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @Html.ValidationSummary(false)
+    </div>
+}
+
+<form method="post">
+    <div class="form-group mb-3">
+        <label asp-for="Name" class="control-label">Ad</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Email" class="control-label">Email</label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="SalonId" class="control-label">Salon ID</label>
+        <input asp-for="SalonId" class="form-control" type="number" />
+        <span asp-validation-for="SalonId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Kaydet" class="btn btn-primary" />
+        <a asp-controller="Admin" asp-action="Employees" class="btn btn-secondary">Geri Dön</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

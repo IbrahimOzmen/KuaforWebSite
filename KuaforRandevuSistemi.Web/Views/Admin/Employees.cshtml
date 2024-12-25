@@ -1,0 +1,40 @@
+﻿@model IEnumerable<KuaforRandevuSistemi.Core.Entities.Employee>
+
+@{
+    ViewData["Title"] = "Çalışanlar";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Çalışanlar</h2>
+        <a asp-controller="Admin" asp-action="CreateEmployee" class="btn btn-primary">Yeni Çalışan Ekle</a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ad</th>
+                <th>Email</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in Model)
+            {
+                <tr>
+                    <td>@employee.Name</td>
+                    <td>@employee.Email</td>
+                    <td>
+                        <a asp-controller="Admin" asp-action="EditEmployee" asp-route-id="@employee.Id"
+                           class="btn btn-warning btn-sm">Düzenle</a>
+                        <a asp-controller="Admin" asp-action="EmployeeServices" asp-route-id="@employee.Id"
+                           class="btn btn-info btn-sm">Hizmetler</a>
+                        <a asp-controller="Admin" asp-action="DeleteEmployee" asp-route-id="@employee.Id"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Bu çalışanı silmek istediğinize emin misiniz?')">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

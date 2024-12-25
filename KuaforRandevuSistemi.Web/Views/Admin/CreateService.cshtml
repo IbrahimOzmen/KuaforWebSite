@@ -1,0 +1,35 @@
+﻿@using KuaforRandevuSistemi.Core.Entities
+@model Service
+
+@{
+    ViewData["Title"] = "Yeni Hizmet Ekle";
+}
+
+<div class="container">
+    <h2>Yeni Hizmet Ekle</h2>
+
+    <form asp-action="CreateService" asp-controller="Admin" method="post">
+        <div class="form-group mb-3">
+            <label asp-for="Name" class="control-label">Hizmet Adı</label>
+            <input asp-for="Name" class="form-control" required />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Price" class="control-label">Fiyat</label>
+            <input asp-for="Price" class="form-control" type="number" step="0.01" required />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Duration" class="control-label">Süre (dakika)</label>
+            <input asp-for="Duration" class="form-control" type="number" required />
+            <span asp-validation-for="Duration" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a asp-action="Services" asp-controller="Admin" class="btn btn-secondary">Geri Dön</a>
+        </div>
+    </form>
+</div>

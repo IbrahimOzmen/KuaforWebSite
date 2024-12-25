@@ -1,0 +1,19 @@
+﻿@model IEnumerable<KuaforRandevuSistemi.Core.Entities.Employee>
+@{
+    ViewData["Title"] = "Çalışma Saatleri";
+}
+<div class="container mt-4">
+    <h2>Çalışma Saatleri</h2>
+    <div class="list-group">
+        @foreach (var employee in Model)
+        {
+            <div class="list-group-item">
+                <h5 class="mb-1">@employee.Name</h5>
+                <a asp-controller="Admin" asp-action="EmployeeSchedule"
+                   asp-route-employeeId="@employee.Id" class="btn btn-primary">
+                    Çalışma Saatlerini Düzenle
+                </a>
+            </div>
+        }
+    </div>
+</div>

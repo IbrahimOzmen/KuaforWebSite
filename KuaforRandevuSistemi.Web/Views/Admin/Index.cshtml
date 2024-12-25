@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Admin Panel";
+}
+
+
+
+<div class="container-fluid">
+    <h2 class="mb-4">Dashboard</h2>
+
+    <div class="row">
+        <!-- Çalışan Sayısı Kartı -->
+        <div class="col-md-4 mb-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Toplam Çalışan</h5>
+                    <p class="card-text display-4">@ViewBag.EmployeeCount</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hizmet Sayısı Kartı -->
+        <div class="col-md-4 mb-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Toplam Hizmet</h5>
+                    <p class="card-text display-4">@ViewBag.ServiceCount</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bugünkü Randevu Sayısı Kartı -->
+        <div class="col-md-4 mb-4">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Bugünkü Randevular</h5>
+                    <p class="card-text display-4">@ViewBag.TodayAppointmentCount</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    Hızlı İşlemler
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a asp-action="Employees" class="btn btn-primary btn-lg btn-block w-100 mb-2">
+                                Çalışanları Yönet
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a asp-action="Services" class="btn btn-success btn-lg btn-block w-100 mb-2">
+                                Hizmetleri Yönet
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a asp-action="Appointments" class="btn btn-info btn-lg btn-block w-100 mb-2">
+                                Randevuları Görüntüle
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
