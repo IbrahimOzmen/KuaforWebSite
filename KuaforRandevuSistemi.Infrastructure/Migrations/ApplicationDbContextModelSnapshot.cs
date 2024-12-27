@@ -64,12 +64,7 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("PasswordHash")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -81,6 +76,15 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 999,
+                            Email = "g191210010@sakarya.edu.tr",
+                            Password = "sau",
+                            Role = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("KuaforRandevuSistemi.Core.Entities.Appointment", b =>
@@ -111,7 +115,6 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("ServiceId")
@@ -219,6 +222,18 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Salons");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Sakarya",
+                            ClosingTime = new TimeSpan(0, 22, 0, 0, 0),
+                            IsActive = true,
+                            Name = "Özmen Kuaför",
+                            OpeningTime = new TimeSpan(0, 9, 0, 0, 0),
+                            Phone = "5552411811"
+                        });
                 });
 
             modelBuilder.Entity("KuaforRandevuSistemi.Core.Entities.Service", b =>
@@ -423,12 +438,10 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("text");
@@ -465,12 +478,10 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
                         .HasColumnType("text");

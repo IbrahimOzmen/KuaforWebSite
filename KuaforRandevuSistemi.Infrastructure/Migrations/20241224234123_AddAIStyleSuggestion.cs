@@ -5,7 +5,7 @@
 namespace KuaforRandevuSistemi.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateEmployeeCollections : Migration
+    public partial class AddAIStyleSuggestion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

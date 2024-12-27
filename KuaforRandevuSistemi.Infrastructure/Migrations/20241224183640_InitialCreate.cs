@@ -19,9 +19,8 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: false),
-                    Role = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    FullName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    Role = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -153,8 +152,8 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    ProviderKey = table.Column<string>(type: "text", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
                     UserId = table.Column<string>(type: "text", nullable: false)
                 },
@@ -198,8 +197,8 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    LoginProvider = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     Value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
@@ -263,9 +262,10 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     EmployeeId = table.Column<int>(type: "integer", nullable: false),
-                    WorkDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DayOfWeek = table.Column<int>(type: "integer", nullable: false),
                     StartTime = table.Column<TimeSpan>(type: "interval", nullable: false),
-                    EndTime = table.Column<TimeSpan>(type: "interval", nullable: false)
+                    EndTime = table.Column<TimeSpan>(type: "interval", nullable: false),
+                    IsWorkingDay = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -287,8 +287,12 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
                     CustomerId = table.Column<int>(type: "integer", nullable: false),
                     EmployeeId = table.Column<int>(type: "integer", nullable: false),
                     ServiceId = table.Column<int>(type: "integer", nullable: false),
-                    AppointmentTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    AppointmentStartTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    AppointmentEndTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: false),
+                    Notes = table.Column<string>(type: "text", nullable: false),
+                    CustomerPhone = table.Column<string>(type: "text", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
@@ -339,6 +343,16 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AppUsers",
+                columns: new[] { "Id", "Email", "Password", "Role" },
+                values: new object[] { 999, "g191210010@sakarya.edu.tr", "sau", "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "Salons",
+                columns: new[] { "Id", "Address", "ClosingTime", "IsActive", "Name", "OpeningTime", "Phone" },
+                values: new object[] { 1, "Sakarya", new TimeSpan(0, 22, 0, 0, 0), true, "Özmen Kuaför", new TimeSpan(0, 9, 0, 0, 0), "5552411811" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AIStyleSuggestions_UserId",

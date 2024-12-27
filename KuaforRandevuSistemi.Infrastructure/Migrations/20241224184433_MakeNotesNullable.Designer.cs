@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KuaforRandevuSistemi.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241208231818_UpdateWorkingHours")]
-    partial class UpdateWorkingHours
+    [Migration("20241224184433_MakeNotesNullable")]
+    partial class MakeNotesNullable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,12 +67,7 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("PasswordHash")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -84,6 +79,15 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 999,
+                            Email = "g191210010@sakarya.edu.tr",
+                            Password = "sau",
+                            Role = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("KuaforRandevuSistemi.Core.Entities.Appointment", b =>
@@ -94,14 +98,27 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("AppointmentTime")
+                    b.Property<DateTime>("AppointmentEndTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("AppointmentStartTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("CustomerPhone")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("EmployeeId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("text");
 
                     b.Property<int>("ServiceId")
                         .HasColumnType("integer");
@@ -208,6 +225,18 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Salons");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Sakarya",
+                            ClosingTime = new TimeSpan(0, 22, 0, 0, 0),
+                            IsActive = true,
+                            Name = "Özmen Kuaför",
+                            OpeningTime = new TimeSpan(0, 9, 0, 0, 0),
+                            Phone = "5552411811"
+                        });
                 });
 
             modelBuilder.Entity("KuaforRandevuSistemi.Core.Entities.Service", b =>
@@ -412,12 +441,10 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("text");
@@ -454,12 +481,10 @@ namespace KuaforRandevuSistemi.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
                         .HasColumnType("text");
