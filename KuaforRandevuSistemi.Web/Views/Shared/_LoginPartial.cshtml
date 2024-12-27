@@ -1,0 +1,23 @@
+﻿<ul class="navbar-nav ms-auto">
+    @* ms-auto ekledik sağa yaslamak için *@
+    @if (User.Identity?.IsAuthenticated == true) @* Soru işareti ekledik *@
+    {
+        <li class="nav-item">
+            <span class="nav-link text-light">@User.Identity?.Name</span>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+                <button type="submit" class="nav-link btn btn-link text-light">Çıkış Yap</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-controller="Account" asp-action="Login">Giriş Yap</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-controller="Account" asp-action="Register">Kayıt Ol</a>
+        </li>
+    }
+</ul>
