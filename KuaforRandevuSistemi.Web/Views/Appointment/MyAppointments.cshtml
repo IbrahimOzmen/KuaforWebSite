@@ -1,0 +1,134 @@
+﻿@model IEnumerable<KuaforRandevuSistemi.Core.Entities.Appointment>
+@{
+    ViewData["Title"] = "Randevularım";
+}
+
+<!-- Hero Section with Slider -->
+<div class="hero-section">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" style="background-image: url('/images/salon1.jpg')"></div>
+            <div class="swiper-slide" style="background-image: url('/images/salon2.jpg')"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content container">
+        <h1 class="display-4 mb-4">Randevularım</h1>
+        <p class="lead">Tüm randevularınızı buradan takip edebilirsiniz</p>
+    </div>
+</div>
+
+<!-- Content Section -->
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Randevu Listesi</h5>
+            <a asp-action="Create" class="btn btn-light">Yeni Randevu Al</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Tarih</th>
+                            <th>Saat</th>
+                            <th>Hizmet</th>
+                            <th>Personel</th>
+                            <th>Durum</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var appointment in Model)
+                        {
+                            <tr>
+                                <td>@appointment.AppointmentStartTime.ToShortDateString()</td>
+                                <td>@appointment.AppointmentStartTime.ToShortTimeString()</td>
+                                <td>@(appointment.Service?.Name ?? "Belirtilmemiş")</td>
+                                <td>@(appointment.Employee?.Name ?? "Belirtilmemiş")</td>
+                                <td>
+                                    <span class="badge rounded-pill
+        @(appointment.Status == "Confirmed" ? "bg-success" :
+          appointment.Status == "Pending" ? "bg-warning" :
+          appointment.Status == "Cancelled" ? "bg-danger" :
+          "bg-secondary")">
+                                        @(appointment.Status == "Pending" ? "Onay Bekliyor" :
+                                            appointment.Status == "Confirmed" ? "Onaylandı" :
+                                            appointment.Status == "Cancelled" ? "İptal Edildi" :
+                                            appointment.Status == "Completed" ? "Tamamlandı" : appointment.Status)
+                                    </span>
+                                </td>
+                                <td>
+                                    @if (appointment.Status == "Confirmed" &&
+                                   appointment.AppointmentStartTime > DateTime.Now)
+                                    {
+                                        <a asp-action="Cancel"
+                                           asp-route-id="@appointment.Id"
+                                           class="btn btn-sm btn-danger"
+                                           onclick="return confirm('Randevunuzu iptal etmek istediğinize emin misiniz?')">
+                                            <i class="fas fa-times me-1"></i>İptal Et
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- İletişim Bilgileri -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5><i class="fas fa-phone me-2"></i>İletişim</h5>
+                    <p class="mb-0">(555) 123-4567</p>
+                    <p>info@kuaforrandevu.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5><i class="fas fa-clock me-2"></i>Çalışma Saatleri</h5>
+                    <p class="mb-0">Pazartesi - Pazar: 09:00 - 22:00</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5><i class="fas fa-hashtag me-2"></i>Sosyal Medya</h5>
+                    <div class="social-icons">
+                        <a href="#" class="me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            effect: 'fade',
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            loop: true
+        });
+    </script>
+}
+}

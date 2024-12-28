@@ -1,10 +1,7 @@
-﻿@* Views/Admin/Appointments.cshtml *@
-@model IEnumerable<KuaforRandevuSistemi.Core.Entities.Appointment>
-
+﻿@model IEnumerable<KuaforRandevuSistemi.Core.Entities.Appointment>
 @{
     ViewData["Title"] = "Randevular";
 }
-
 
 <div class="container mt-4">
     <h2>Randevular</h2>
@@ -27,10 +24,49 @@
                     <td>@item.Customer?.Email</td>
                     <td>@item.Employee?.Name</td>
                     <td>@item.Service?.Name</td>
-                    <td>@item.Status</td>
                     <td>
-                        <a asp-action="EditAppointment" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Düzenle</a>
-                        <a asp-action="DeleteAppointment" asp-route-id="@item.Id" class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinize emin misiniz?')">Sil</a>
+                        <span class="badge rounded-pill
+                            @(item.Status == "Confirmed" ? "bg-success" :
+                              item.Status == "Pending" ? "bg-warning" :
+                              item.Status == "Cancelled" ? "bg-danger" :
+                              "bg-secondary")">
+                            @(item.Status == "Pending" ? "Onay Bekliyor" :
+                                item.Status == "Confirmed" ? "Onaylandı" :
+                                item.Status == "Cancelled" ? "İptal Edildi" :
+                                item.Status == "Completed" ? "Tamamlandı" : item.Status)
+                        </span>
+                    </td>
+                    <td>
+                        @if (item.Status == "Pending")
+                        {
+                            <form method="post" style="display: inline;">
+                                <button type="submit"
+                                        asp-controller="Appointment"
+                                        asp-action="ConfirmAppointment"
+                                        asp-route-id="@item.Id"
+                                        class="btn btn-success btn-sm">
+                                    <i class="fas fa-check me-1"></i>Onayla
+                                </button>
+                                <button type="submit"
+                                        asp-controller="Appointment"
+                                        asp-action="RejectAppointment"
+                                        asp-route-id="@item.Id"
+                                        class="btn btn-danger btn-sm">
+                                    <i class="fas fa-times me-1"></i>Reddet
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a asp-action="EditAppointment" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit me-1"></i>Düzenle
+                            </a>
+                            <a asp-action="DeleteAppointment" asp-route-id="@item.Id"
+                               class="btn btn-sm btn-danger"
+                               onclick="return confirm('Silmek istediğinize emin misiniz?')">
+                                <i class="fas fa-trash me-1"></i>Sil
+                            </a>
+                        }
                     </td>
                 </tr>
             }

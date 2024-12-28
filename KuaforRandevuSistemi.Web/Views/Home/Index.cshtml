@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<!-- Hero Section with Slider -->
+<div class="hero-section">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <!-- Slider için örnek resimler -->
+            <div class="swiper-slide" style="background-image: url('/images/salon1.jpg')"></div>
+            <div class="swiper-slide" style="background-image: url('/images/salon2.jpg')"></div>
+        </div>
+        <!-- Slider kontrolleri -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            effect: 'fade',
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            loop: true
+        });
+    </script>
+}
+}

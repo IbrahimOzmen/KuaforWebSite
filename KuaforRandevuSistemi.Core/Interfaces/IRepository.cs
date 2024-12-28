@@ -17,7 +17,19 @@ namespace KuaforRandevuSistemi.Core.Interfaces
 
         // Özel sorgular için
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
+
+        Task<IEnumerable<T>> FindWithIncludeAsync(
+            Expression<Func<T, bool>> predicate,
+            params Expression<Func<T, object>>[] includes);
         Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate);
         Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
+        Task<IEnumerable<T>> FindAsync(
+    Expression<Func<T, bool>> predicate,
+    Func<IQueryable<T>, IQueryable<T>> includes = null);
+
+
+
+        // Navigation propertyler için yeni metod
+        Task<IEnumerable<T>> FindWithNavigationPropertiesAsync(Expression<Func<T, bool>> predicate);
     }
 }

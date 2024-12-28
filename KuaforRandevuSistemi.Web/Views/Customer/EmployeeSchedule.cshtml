@@ -1,0 +1,49 @@
+﻿@model IEnumerable<KuaforRandevuSistemi.Core.Entities.WorkingHours>
+@{
+    ViewData["Title"] = "Çalışma Saatleri";
+}
+
+<div class="container">
+    <h2>Çalışma Saatleri</h2>
+    <div class="card mt-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Gün</th>
+                            <th>Başlangıç</th>
+                            <th>Bitiş</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var workingHour in Model)
+                        {
+                            <tr>
+                                <td>@workingHour.DayOfWeek.ToString()</td>
+                                <td>@workingHour.StartTime.ToString(@"hh\:mm")</td>
+                                <td>@workingHour.EndTime.ToString(@"hh\:mm")</td>
+                                <td>
+                                    @if (workingHour.IsWorkingDay)
+                                    {
+                                        <span class="badge bg-success">Açık</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Kapalı</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-3">
+                <a asp-controller="Customer" asp-action="Employees" class="btn btn-secondary">
+                    Geri Dön
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

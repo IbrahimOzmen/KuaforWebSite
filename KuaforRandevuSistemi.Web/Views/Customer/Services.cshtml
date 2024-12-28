@@ -1,0 +1,97 @@
+﻿@model IEnumerable<KuaforRandevuSistemi.Core.Entities.Service>
+@{
+    ViewData["Title"] = "Hizmetlerimiz";
+}
+
+<!-- Hero Section with Slider -->
+<div class="hero-section">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" style="background-image: url('/images/salon1.jpg')"></div>
+            <div class="swiper-slide" style="background-image: url('/images/salon2.jpg')"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content container">
+        <h1 class="display-4 mb-4">Hizmetlerimiz</h1>
+        <p class="lead">Profesyonel kuaförlük hizmetlerimiz</p>
+    </div>
+</div>
+
+<!-- Services Section -->
+<div class="container mt-5">
+    <div class="row">
+        @foreach (var service in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="service-card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-cut fa-2x"></i>
+                    </div>
+                    <h3>@service.Name</h3>
+                    <div class="price-tag">@service.Price.ToString("C")</div>
+                    <p class="duration"><i class="far fa-clock me-2"></i>@service.Duration dakika</p>
+                    <a asp-controller="Appointment" asp-action="Create"
+                       asp-route-serviceId="@service.Id"
+                       class="btn btn-primary w-100">
+                        <i class="far fa-calendar-alt me-2"></i>Randevu Al
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- İletişim Bilgileri -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="info-card">
+                <div class="icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <h5>İletişim</h5>
+                <p>(555) 123-4567</p>
+                <p>info@kuaforrandevu.com</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="info-card">
+                <div class="icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h5>Çalışma Saatleri</h5>
+                <p>Pazartesi - Pazar</p>
+                <p>09:00 - 22:00</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="info-card">
+                <div class="icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h5>Adres</h5>
+                <p>Sakarya</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            effect: 'fade',
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            loop: true
+        });
+    </script>
+}
+}

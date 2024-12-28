@@ -9,5 +9,10 @@ namespace KuaforRandevuSistemi.Application.Interfaces
         Task<bool> ConfirmCancellation(int appointmentId);
         Task CheckAndCompleteAppointments();
         Task<List<DateTime>> GetAvailableTimeSlots(int employeeId, int serviceId, DateTime date);
+
+        Task<List<DateTime>> GetUnavailableTimeSlots(int employeeId, DateTime date);
+
+        Task ConfirmAppointment(int appointmentId); // ConfirmAppointment metotunu ekleyin
+        Task RejectAppointment(int appointmentId); // RejectAppointment metotunu ekleyin
     }
 }

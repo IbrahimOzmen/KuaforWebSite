@@ -1,0 +1,146 @@
+﻿@{
+    var today = DateTime.Today;
+    var maxDate = today.AddMonths(1);
+}
+
+<h2>Randevu Al</h2>
+<h4>Adım 3: Tarih ve Saat Seçimi</h4>
+
+<style>
+    .time-slot {
+        transition: all 0.3s ease;
+        margin: 5px;
+        min-width: 80px;
+    }
+    .time-slot.unavailable {
+        background-color: #ffcdd2 !important;
+        border-color: #ef9a9a !important;
+        cursor: not-allowed;
+        pointer-events: none;
+        opacity: 0.7;
+    }
+    .time-slot.available {
+        background-color: #c8e6c9;
+        border-color: #81c784;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Tarih Seçin</label>
+            <input type="date" id="appointmentDate" class="form-control"
+                   min="@today.ToString("yyyy-MM-dd")"
+                   max="@maxDate.ToString("yyyy-MM-dd")">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Müsait Saatler</label>
+            <div id="timeSlots" class="row p-3">
+                <!-- Saatler AJAX ile doldurulacak -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<form asp-action="Confirm" method="post" id="appointmentForm">
+    <input type="hidden" name="ServiceId" value="@ViewBag.ServiceId">
+    <input type="hidden" name="EmployeeId" value="@ViewBag.EmployeeId">
+    <input type="hidden" name="AppointmentStartTime" id="selectedDateTime">
+
+    <div class="form-group mt-3">
+        <label>Telefon Numarası</label>
+        <input type="tel" class="form-control" name="CustomerPhone" required>
+    </div>
+
+    <div class="form-group mt-3">
+        <label>Notlar (İsteğe bağlı)</label>
+        <textarea class="form-control" name="Notes"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3" disabled id="confirmBtn">
+        Randevuyu Onayla
+    </button>
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#appointmentDate').change(function() {
+                var date = $(this).val();
+                var serviceId = @ViewBag.ServiceId;
+                var employeeId = @ViewBag.EmployeeId;
+
+                // Müsait saatleri getir
+                $.ajax({
+                    url: '/Appointment/GetAvailableSlots',
+                    type: 'POST',
+                    data: {
+                        serviceId: serviceId,
+                        employeeId: employeeId,
+                        date: date
+                    },
+                    success: function(slots) {
+                        var html = '';
+                        if(slots && slots.length > 0) {
+                            slots.forEach(function(slot) {
+                                var date = new Date(slot);
+                                var hours = date.getHours().toString().padStart(2, '0');
+                                var minutes = date.getMinutes().toString().padStart(2, '0');
+                                var timeString = `${hours}:${minutes}`;
+
+                                html += `
+                                    <div class="col-auto mb-2">
+                                        <button type="button"
+                                                class="btn timeSlot btn-outline-primary"
+                                                data-time="${slot}"
+                                                data-timeslot="${hours}:${minutes}">
+                                            ${timeString}
+                                        </button>
+                                    </div>`;
+                            });
+
+                            $('#timeSlots').html(html);
+
+                            // Dolu slotları kontrol et
+                            $.ajax({
+                                url: '/Appointment/CheckSlotAvailability',
+                                type: 'POST',
+                                data: {
+                                    employeeId: employeeId,
+                                    date: date
+                                },
+                                success: function(bookedTimes) {
+                                    bookedTimes.forEach(function(time) {
+                                        $(`button[data-timeslot="${time}"]`).addClass('disabled')
+                                            .css({
+                                                'opacity': '0.5',
+                                                'cursor': 'not-allowed',
+                                                'background-color': '#ffcdd2',
+                                                'border-color': '#ef9a9a',
+                                                'pointer-events': 'none'
+                                            })
+                                            .attr('title', 'Bu saat dolu')
+                                            .prop('disabled', true);
+                                    });
+                                }
+                            });
+                        } else {
+                            html = '<div class="alert alert-info">Seçilen tarihte müsait saat bulunmamaktadır.</div>';
+                            $('#timeSlots').html(html);
+                        }
+                    }
+                });
+            });
+
+            // Saat seçimi
+            $(document).on('click', '.timeSlot:not(.disabled)', function() {
+                $('.timeSlot').removeClass('btn-primary').addClass('btn-outline-primary');
+                $(this).removeClass('btn-outline-primary').addClass('btn-primary');
+                $('#selectedDateTime').val($(this).data('time'));
+                $('#confirmBtn').prop('disabled', false);
+            });
+        });
+    </script>
+}

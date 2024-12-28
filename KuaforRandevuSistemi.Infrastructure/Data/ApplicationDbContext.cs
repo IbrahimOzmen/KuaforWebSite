@@ -40,6 +40,18 @@ namespace KuaforRandevuSistemi.Infrastructure.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
+            modelBuilder.Entity<Appointment>(entity =>
+            {
+                entity.Property(e => e.AppointmentStartTime)
+                    .HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.AppointmentEndTime)
+                    .HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnType("timestamp with time zone");
+            });
+
             // Service ilişkileri
             modelBuilder.Entity<Service>(entity =>
             {
@@ -93,6 +105,19 @@ namespace KuaforRandevuSistemi.Infrastructure.Data
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Address).IsRequired().HasMaxLength(200);
                 entity.Property(e => e.Phone).HasMaxLength(20);
+
+                modelBuilder.Entity<Salon>().HasData(
+    new Salon
+    {
+        Id = 1,
+        Name = "Özmen Kuaför",
+        Address = "Sakarya",
+        Phone = "5552411811",
+        OpeningTime = new TimeSpan(9, 0, 0),  
+        ClosingTime = new TimeSpan(22, 0, 0), 
+        IsActive = true
+    }
+);
             });
 
             modelBuilder.Entity<Service>(entity =>
@@ -101,12 +126,20 @@ namespace KuaforRandevuSistemi.Infrastructure.Data
                 entity.Property(e => e.Price).HasColumnType("decimal(18,2)");
             });
 
-            modelBuilder.Entity<AppUser>(entity =>  // User yerine AppUser
+            modelBuilder.Entity<AppUser>(entity =>
             {
                 entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
-                entity.Property(e => e.PasswordHash).IsRequired();
+                entity.Property(e => e.Password).IsRequired();
                 entity.Property(e => e.Role).IsRequired().HasMaxLength(20);
-                entity.Property(e => e.FullName).IsRequired().HasMaxLength(100);
+
+                // Admin seed
+                entity.HasData(new AppUser
+                {
+                    Id = 999,
+                    Email = "g191210010@sakarya.edu.tr",
+                    Password = "sau",
+                    Role = "Admin"
+                });
             });
         }
     }

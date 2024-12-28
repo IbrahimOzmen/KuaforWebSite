@@ -19,7 +19,7 @@
     public class AppointmentResponseDTO
     {
         public int Id { get; set; }
-        public string CustomerName { get; set; } = string.Empty;
+        public string CustomerEmail { get; set; } = string.Empty;
         public string EmployeeName { get; set; } = string.Empty;
         public string ServiceName { get; set; } = string.Empty;
         public decimal ServicePrice { get; set; }

@@ -30,7 +30,7 @@ namespace KuaforRandevuSistemi.Web.API.Controllers
                 return Unauthorized("Geçersiz email veya şifre");
 
             // NOT: Gerçek uygulamada şifre hashlenerek karşılaştırılmalı
-            if (user.PasswordHash != request.Password)
+            if (user.Password != request.Password)
                 return Unauthorized("Geçersiz email veya şifre");
 
             var token = _jwtService.GenerateToken(user);
@@ -39,7 +39,7 @@ namespace KuaforRandevuSistemi.Web.API.Controllers
             {
                 Token = token,
                 UserRole = user.Role,
-                UserName = user.FullName,
+               
                 TokenExpiration = DateTime.UtcNow.AddHours(1)
             });
         }
@@ -54,8 +54,7 @@ namespace KuaforRandevuSistemi.Web.API.Controllers
             var user = new AppUser
             {
                 Email = request.Email,
-                PasswordHash = request.Password, // NOT: Gerçek uygulamada hash'lenmeli
-                FullName = request.FullName,
+                Password = request.Password, // NOT: Gerçek uygulamada hash'lenmeli
                 Role = "Customer" // Yeni kayıtlar varsayılan olarak müşteri
             };
 

@@ -5,16 +5,34 @@ namespace KuaforRandevuSistemi.Core.Entities
 {
     public class Appointment : BaseEntity
     {
+        private DateTime _appointmentStartTime;
+        private DateTime _appointmentEndTime;
+        private DateTime _createdAt;
+
         public int CustomerId { get; set; }
         public int EmployeeId { get; set; }
         public int ServiceId { get; set; }
 
-        public DateTime AppointmentStartTime { get; set; }
-        public DateTime AppointmentEndTime { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime AppointmentStartTime
+        {
+            get => _appointmentStartTime;
+            set => _appointmentStartTime = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+        }
 
-        public string Status { get; set; }  // Confirmed, Cancelled, Completed
-        public string Notes { get; set; }
+        public DateTime AppointmentEndTime
+        {
+            get => _appointmentEndTime;
+            set => _appointmentEndTime = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+        }
+
+        public DateTime CreatedAt
+        {
+            get => _createdAt;
+            set => _createdAt = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+        }
+
+        public string Status { get; set; } = AppointmentStatus.Pending.ToString();  // Confirmed, Cancelled, Completed
+        public string? Notes { get; set; }
         public string CustomerPhone { get; set; }
         public decimal TotalPrice { get; set; }
 
@@ -27,8 +45,9 @@ namespace KuaforRandevuSistemi.Core.Entities
     // Status için enum tanımı
     public enum AppointmentStatus
     {
-        Confirmed,  // Randevu alındığında otomatik
-        Cancelled,  // Müşteri iptal ederse
-        Completed  // Randevu saati geçtiğinde otomatik
+        Pending,      // Randevu bekliyor
+        Confirmed,  // Randevu onaylandı
+        Cancelled,  // Randevu iptal edildi
+        Completed  // Randevu tamamlandı
     }
 }

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<KuaforRandevuSistemi.Core.Entities.Employee>
+@{
+    ViewData["Title"] = "Çalışanlarımız";
+}
+
+<div class="container">
+    <h2>Çalışanlarımız</h2>
+    <div class="row mt-4">
+        @foreach (var employee in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@employee.Name</h5>
+                        <p class="card-text">
+                            @if (employee.EmployeeServices != null && employee.EmployeeServices.Any())
+                            {
+                                <strong>Uzmanlık Alanları:</strong>
+
+                                <br />
+                                @foreach (var es in employee.EmployeeServices)
+                                {
+                                    <span class="badge bg-primary me-1">@es.Service?.Name</span>
+                                }
+                            }
+                        </p>
+                        <button type="button" class="btn btn-info"
+                                onclick="showSchedule(@employee.Id)">
+                            Çalışma Saatlerini Gör
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showSchedule(employeeId) {
+            window.location.href = `/Customer/EmployeeSchedule/${employeeId}`;
+        }
+    </script>
+}

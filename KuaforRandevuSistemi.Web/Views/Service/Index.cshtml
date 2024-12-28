@@ -1,0 +1,33 @@
+﻿@model IEnumerable<KuaforRandevuSistemi.Core.Entities.Service>
+
+<h2>Hizmetler</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Hizmet Ekle</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Hizmet Adı</th>
+            <th>Ücret</th>
+            <th>Süre (dk)</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var service in Model)
+        {
+            <tr>
+                <td>@service.Name</td>
+                <td>@service.Price.ToString("C")</td>
+                <td>@service.Duration dk</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@service.Id" class="btn btn-warning">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@service.Id" class="btn btn-danger"
+                       onclick="return confirm('Bu hizmeti silmek istediğinizden emin misiniz?')">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

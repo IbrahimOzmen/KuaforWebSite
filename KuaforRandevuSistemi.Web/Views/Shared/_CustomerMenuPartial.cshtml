@@ -1,0 +1,21 @@
+﻿<!-- KuaforRandevuSistemi.Web/Views/Shared/_CustomerMenuPartial.cshtml -->
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+        <a class="nav-link text-light" asp-controller="Appointment" asp-action="Create">Randevu Al</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-light" asp-controller="Service" asp-action="List">Hizmetlerimiz</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-light" asp-controller="Appointment" asp-action="MyAppointments">Randevularım</a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            AI Saç Önerileri
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" asp-controller="AIStyle" asp-action="Index">Yeni Öneri Al</a></li>
+            <li><a class="dropdown-item" asp-controller="AIStyle" asp-action="History">Öneri Geçmişim</a></li>
+        </ul>
+    </li>
+</ul>

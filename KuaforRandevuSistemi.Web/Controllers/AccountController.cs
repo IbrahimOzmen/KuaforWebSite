@@ -104,7 +104,7 @@ namespace KuaforRandevuSistemi.Web.Controllers
             {
                 Email = model.Email,
                 Password = model.Password, // Gerçek uygulamada hash'lenmeli
-                
+
                 Role = "Customer"
             };
 
@@ -115,11 +115,17 @@ namespace KuaforRandevuSistemi.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
+
+
         [Authorize]
+        [ValidateAntiForgeryToken]
+        [HttpGet, HttpPost] // Her iki HTTP metodunu da kabul et
         public async Task<IActionResult> Logout()
         {
-            await _authService.SignOutAsync(HttpContext);
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                await _authService.SignOutAsync(HttpContext);
+            }
             return RedirectToAction("Index", "Home");
         }
     }

@@ -31,7 +31,7 @@ namespace KuaforRandevuSistemi.Infrastructure.Services
 
                 var requestBody = new
                 {
-                    model = "gpt-3.5-turbo",  // GPT-4 modeli kullanıyoruz
+                    model = "gpt-3.5-turbo",  //
                     messages = messages,
                     temperature = 0.7,
                     max_tokens = 500

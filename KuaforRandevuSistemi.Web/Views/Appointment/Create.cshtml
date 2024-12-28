@@ -1,0 +1,27 @@
+﻿@model IEnumerable<KuaforRandevuSistemi.Core.Entities.Service>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Randevu Al";
+}
+
+<h2>Randevu Al</h2>
+<h4>Adım 1: Hizmet Seçimi</h4>
+
+<div class="row">
+    @foreach (var service in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@service.Name</h5>
+                    <p class="card-text">
+                        <strong>Fiyat:</strong> @service.Price.ToString("C")<br />
+                        <strong>Süre:</strong> @service.Duration dakika
+                    </p>
+                    <a asp-action="SelectEmployee" asp-route-serviceId="@service.Id"
+                       class="btn btn-primary">Bu Hizmeti Seç</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

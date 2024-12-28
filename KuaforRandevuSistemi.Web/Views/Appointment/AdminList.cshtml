@@ -1,0 +1,46 @@
+﻿@model IEnumerable<KuaforRandevuSistemi.Core.Entities.Appointment>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Randevu Listesi";
+}
+
+<div class="container">
+    <h2>Tüm Randevular</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Müşteri</th>
+                <th>Tarih</th>
+                <th>Saat</th>
+                <th>Hizmet</th>
+                <th>Çalışan</th>
+                <th>Durum</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointment in Model)
+            {
+                <tr>
+                    <td>@appointment.AppointmentStartTime.ToShortDateString()</td>
+                    <td>@appointment.AppointmentStartTime.ToShortTimeString()</td>
+                    <td>@appointment.Service?.Name</td>
+                    <td>@appointment.Employee?.Name</td>
+                    <td>@appointment.Status</td>
+                    <td>
+                        @if (appointment.Status != "Cancelled" && appointment.Status != "Completed")
+                        {
+                            <a asp-action="Cancel" asp-route-id="@appointment.Id"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Randevuyu iptal etmek istediğinize emin misiniz?')">
+                                İptal Et
+                            </a>
+                            <a asp-action="ConfirmAppointment" asp-route-id="@appointment.Id" class="btn btn-success btn-sm">Onayla</a>
+                            <a asp-action="RejectAppointment" asp-route-id="@appointment.Id" class="btn btn-danger btn-sm">Reddet</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

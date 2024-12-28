@@ -174,7 +174,7 @@ namespace KuaforRandevuSistemi.API.Controllers
             return new AppointmentResponseDTO
             {
                 Id = appointment.Id,
-                CustomerName = customer?.FullName ?? "",
+                CustomerEmail = customer?.Email ?? "",
                 EmployeeName = employee?.Name ?? "",
                 ServiceName = service?.Name ?? "",
                 ServicePrice = service?.Price ?? 0,

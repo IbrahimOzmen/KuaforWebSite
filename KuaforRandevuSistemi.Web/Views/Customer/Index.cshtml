@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Müşteri Paneli";
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Hoş Geldiniz</h2>
+            <p>Kuaför randevu sistemi müşteri panelindesiniz.</p>
+        </div>
+    </div>
+
+    <!-- Aktif Randevular -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Aktif Randevularınız</h5>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.ActiveAppointments != null && ViewBag.ActiveAppointments.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Tarih</th>
+                                <th>Saat</th>
+                                <th>Hizmet</th>
+                                <th>Çalışan</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var appointment in ViewBag.ActiveAppointments)
+                            {
+                                <tr>
+                                    <td>@appointment.AppointmentStartTime.ToShortDateString()</td>
+                                    <td>@appointment.AppointmentStartTime.ToShortTimeString()</td>
+                                    <td>@appointment.Service?.Name</td>
+                                    <td>@appointment.Employee?.Name</td>
+                                    <td>@appointment.Status</td>
+                                    <td>
+                                        @if (appointment.Status != "Cancelled")
+                                        {
+                                            <a asp-controller="Appointment" asp-action="Cancel"
+                                               asp-route-id="@appointment.Id" class="btn btn-sm btn-danger"
+                                               onclick="return confirm('Randevuyu iptal etmek istediğinize emin misiniz?')">
+                                                İptal Et
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p>Aktif randevunuz bulunmamaktadır.</p>
+            }
+        </div>
+    </div>
+
+    <!-- Hızlı İşlemler -->
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Yeni Randevu</h5>
+                    <p>Yeni bir randevu oluşturun.</p>
+                    <a asp-controller="Appointment" asp-action="Create" class="btn btn-primary">Randevu Al</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Hizmetlerimiz</h5>
+                    <p>Sunduğumuz hizmetleri inceleyin.</p>
+                    <a asp-controller="Customer" asp-action="Services" class="btn btn-primary">Hizmetleri Gör</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Çalışanlarımız</h5>
+                    <p>Uzman çalışanlarımızı tanıyın.</p>
+                    <a asp-controller="Customer" asp-action="Employees" class="btn btn-primary">Çalışanları Gör</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

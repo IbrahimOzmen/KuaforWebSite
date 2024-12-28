@@ -1,0 +1,275 @@
+/* Root Variables */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #e74c3c;
+    --accent-color: #3498db;
+    --text-light: #ffffff;
+    --text-dark: #2c3e50;
+    --success-color: #2ecc71;
+    --warning-color: #f1c40f;
+    --danger-color: #e74c3c;
+    --background-dark: #1a252f;
+    --transition: all 0.3s ease;
+}
+
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: var(--background-dark) !important;
+    padding: 1rem 0;
+    transition: var(--transition);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: var(--text-light) !important;
+}
+
+.nav-link {
+    color: var(--text-light) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    transition: var(--transition);
+}
+
+    .nav-link:hover {
+        transform: translateY(-2px);
+    }
+.container {
+    margin-bottom: 0;
+}
+
+/* Hero Section */
+.hero-section {
+    height: 100vh; /* 60vh'den 100vh'ye çýkarýldý */
+    min-height: 100vh; /* 400px'den 100vh'ye çýkarýldý */
+    position: relative;
+    overflow: hidden;
+    margin-top: 0; /* 76px'den 0'a indirildi */
+    margin: 0;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: var(--text-light);
+    padding-top: 20vh;
+    text-align: center;
+}
+
+/* Slider */
+.swiper-container {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+}
+
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+}
+
+/* Cards */
+.service-card {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: var(--transition);
+}
+
+    .service-card:hover {
+        transform: translateY(-10px);
+    }
+
+.icon-wrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.price-tag {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin: 1rem 0;
+}
+
+/* Tables */
+.table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+    .table thead {
+        background: var(--primary-color);
+        color: var(--text-light);
+    }
+
+/* Buttons */
+.btn-custom {
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    transition: var(--transition);
+}
+
+    .btn-custom:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+/* Info Cards */
+.info-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+    .info-card .icon {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+/* Status Badges */
+.badge {
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-section {
+        height: 40vh;
+    }
+
+    .hero-content {
+        padding-top: 15vh;
+    }
+
+    .service-card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-up {
+    animation: fadeUp 0.5s ease forwards;
+}
+
+/* Footer */
+/* Footer alaný için güncelleme */
+.footer {
+    background: var(--background-dark);
+    color: var(--text-light);
+    padding: 1.5rem 0; /* 3rem'den 1.5rem'e indirildi */
+    margin-top: 0; /* footer margin'i sýfýrladýk */
+}
+
+    .footer h5 {
+        font-size: 1rem; /* baþlýk boyutu küçültüldü */
+        margin-bottom: 0.5rem; /* margin azaltýldý */
+    }
+
+    .footer p {
+        margin-bottom: 0.25rem; /* paragraf aralarý azaltýldý */
+        font-size: 0.9rem; /* yazý boyutu küçültüldü */
+    }
+
+/* Social Icons için güncelleme */
+.social-icons {
+    margin-top: 0.5rem; /* margin azaltýldý */
+}
+
+    .social-icons a {
+        font-size: 1.2rem; /* ikon boyutu küçültüldü */
+        margin-right: 0.75rem; /* ikonlar arasý mesafe azaltýldý */
+    }
+
+    .social-icons a:hover {
+        color: var(--accent-color);
+        transform: translateY(-2px);
+    }
+
+/* Auth Buttons */
+.auth-btn {
+    background: var(--accent-color);
+    color: var(--text-light) !important;
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    transition: var(--transition);
+}
+
+    .auth-btn:hover {
+        background: darken(var(--accent-color), 10%);
+        transform: translateY(-2px);
+    }
+/* Auth sayfalarý için özel stil */
+.auth-container {
+    min-height: 100vh;
+    padding-top: 80px; /* Navbar yüksekliði kadar padding */
+    padding-bottom: 2rem;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/images/salon1.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+    /* Login/Register kartý için stil */
+    .auth-container .card {
+        background-color: rgba(255, 255, 255, 0.95);
+        border: none;
+        border-radius: 15px;
+    }
+
+.logout-btn {
+    background: var(--accent-color);
+    color: var(--text-light) !important;
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+    .logout-btn:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+    }
